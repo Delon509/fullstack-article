@@ -60,6 +60,12 @@ export const updateLocalStorage = (providedUsername,providedEmail,providedImage,
   localStorage.setItem("user", JSON.stringify(user));
 }
 
+export const storeNewToken =(providedToken) =>{
+  const user = JSON.parse(localStorage.getItem("user"));
+  user.token = providedToken;
+  localStorage.setItem("user", JSON.stringify(user));
+}
+
 export const deleteLocalStorage = () => {
   localStorage.removeItem("user");
 }

@@ -158,11 +158,14 @@ public class UserService {
         }
         profileRepository.save(currentProfile);
         userRepository.save(currentUser);
+        UserDetailsImpl temp = new UserDetailsImpl(currentUser);
+        var jwtToken = jwtService.generateToken(temp);
         Map<String,Object> result = new HashMap<>();
         Map<String,Object> userMap = new HashMap<>();
         Map<String,String> profileMap = new HashMap<>();
         userMap.put("email", currentUser.getEmail());
         userMap.put("username",currentUser.getUsername());
+        userMap.put("token",jwtToken);
         profileMap.put("bio",currentUser.getProfile().getBio());
         profileMap.put("image",currentUser.getProfile().getImage());
         userMap.put("profile", profileMap);

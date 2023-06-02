@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import authHeader, { checkToken, updateLocalStorage } from "../services/authServices";
+import authHeader, { checkToken, storeNewToken, updateLocalStorage } from "../services/authServices";
 
 const SettingForm = () => {
   const navigate = useNavigate();
@@ -88,6 +88,7 @@ const SettingForm = () => {
       //console.log("Updating LocalStorage");
       //console.log(response.data.user.username);
       updateLocalStorage(response.data.user.username, response.data.user.email,response.data.user.profile.image, response.data.user.profile.bio)
+      storeNewToken(response.data.user.token);
       navigate("/profile/"+response.data.user.username);
     } catch (error) {
       //console.log(error.response.status);
